@@ -1,0 +1,18 @@
+{
+  "name": "c",
+  "description": "",
+  "homepage": "",
+  "keywords": [
+  ],
+  "author": "",
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer#0.5.5",
+    "paper-elements": "Polymer/paper-elements#0.5.5",
+    "core-image": "Polymer/core-image#^0.5",
+    "core-list": "Polymer/core-list#^0.5",
+    "core-localstorage": "Polymer/core-localstorage#^0.5",
+    "core-ajax": "Polymer/core-ajax#^0.5",
+    "core-scroll-threshold": "Polymer/core-scroll-threshold#^0.5"
+  }
+}

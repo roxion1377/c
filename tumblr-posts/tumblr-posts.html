@@ -1,0 +1,47 @@
+<!--<link rel="import" href="bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="bower_components/core-image/core-image.html">-->
+<link rel="import" href="../bower_components/core-icons/core-icons.html">
+<link rel="import" href="../bower_components/core-a11y-keys/core-a11y-keys.html">
+<link rel="import" href="../bower_components/core-scroll-threshold/core-scroll-threshold.html">
+<link rel="import" href="../tumblr-post/tumblr-post.html">
+<polymer-element name="tumblr-posts">
+<template>
+  <link rel="stylesheet" href="tumblr-posts.css">
+  <core-ajax
+    id="lowerposts"
+    auto="false"
+    handleAs="json"
+    url="{{baseURL}}/user/dashboard"
+    params="{{lower_options}}"
+    loading="{{lower_loading}}"
+    on-core-response="{{handleLowerDashboardResponse}}"></core-ajax>
+  <core-ajax
+    id="upperposts"
+    auto="false"
+    handleAs="json"
+    url="{{baseURL}}/user/dashboard"
+    params="{{upper_options}}"
+    loading="{{upper_loading}}"
+    on-core-response="{{handleUpperDashboardResponse}}"></core-ajax>
+  <core-scroll-threshold id="posts_threshold"
+    scrollTarget="{{$.posts_container}}"
+    lowerThreshold="30"
+    on-lower-trigger="{{loadMore}}"
+    upperThreshold="30"
+    on-upper-trigger="{{update}}" fit>
+  </core-scroll-threshold>
+  <core-a11y-keys target="{{}}" keys="j" on-keys-pressed="{{update}}"></core-a11y-keys>
+  <div vertical id="posts_container" fit>
+    <div horizontal center-justified layout>
+      <paper-spinner active="{{upper_loading}}" hidden?="{{!upper_loading}}"></paper-spinner>
+    </div>
+    <template repeat="{{post in posts}}">
+      <tumblr-post post="{{post}}"></tumblr-post>
+    </template>
+    <div horizontal center-justified layout>
+      <paper-spinner active="{{lower_loading}}" hidden?="{{!lower_loading}}"></paper-spinner>
+    </div>
+  </div>
+</template>
+<script src="tumblr-posts.js"></script>
+</polymer-element>

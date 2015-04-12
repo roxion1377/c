@@ -1,0 +1,11 @@
+{
+  "name": "tumblr-posts",
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer#^0.5"
+  },
+  "ignore": [
+    "**/.*"
+  ],
+  "version": "0.0.1"
+}

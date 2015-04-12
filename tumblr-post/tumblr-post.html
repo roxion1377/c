@@ -1,0 +1,47 @@
+<link rel="import" href="../bower_components/core-icons/core-icons.html">
+<link rel="import" href="../bower_components/core-icons/av-icons.html">
+<link rel="import" href="../bower_components/ore-localstorage/core-localstorage.html">
+<polymer-element name="tumblr-post">
+<template>
+  <link rel="stylesheet" href="tumblr-post.css">
+  <core-ajax
+    id="reblog"
+    auto="false"
+    handleAs="json"
+    url="{{baseURL}}/{{blogName}}/post/reblog"
+    params="{{options}}"
+    loading="{{loading}}"
+    on-core-response="{{handleReblogResponse}}"></core-ajax>
+<!--  <div class="post_container" hidden?="{{reblogged}}">-->
+  <div class="post_container">
+    <div class="post_media">
+      <template if="{{post.type==='photo'}}">
+        <template repeat="{{photo in post.photos}}">
+          <core-image style="width:100%;height:auto;"
+           width="{{photo.alt_sizes[1].width}}" height="{{photo.alt_sizes[1].height}}"
+           preload placeholder="data:image/gif;base64,R0lGODdhyADIAOMAAO7u/5aWlqGho9jY5OPj8cLCyqyssLe3vc3N1wAAAAAAAAAAAAAAAAAAAAAAAAAAACwAAAAAyADIAAAE/hDISau9OOvNu/9gKI5kaZ5oqq5s675wLM90bd94ru987//AoHBILBqPyKRyyWw6n9CodEqtWq/YrHbL7Xq/4LB4TC6bz+i0es1uu9/wuHxOr9vv+Lx+z+/7/4CBgoOEhYaHiImKi4yNjo+QkZKTlJWWl5iZmpucnZ6foKGio6SlpqeoqaqrrK2ur7CxsrO0tba3uLm6u7y9vr/AwcLDxMXGx8jJysvMzc7P0NHS06kB1tYqA9cUBQEFrgLWAgIqBOEBFNuu1gMs2ugT3d/rAe0r77bsFwMGAQLzEggc8AcQAIJwA+EBuKbQmgF+3iocDHBAXiZ9Fd6dAxhuo4R3/gwnGDgnkqE1BBM0XrN3CSOFgQYM+ouHEsFMAP1i2lQIAN8EhwS6kZPQ74BMnpZcTgiHkoA1AhKxAWDaU+pHqwvrVVVI1ScmpRIwYjxwTqo+r1vTafV6FmtSrRXEak0ooB+8tjzR4v251m0llwSgUnUaAOrJtFMDoESrty9XxYi/wk0sMEBMoRKo7iRK8SiFxu285vQMoIDR0qdNN+rmbxxJlRFLi7u22OG1mDjP4bYb2uFVf+r0CZ+cyOS1oRD/cUM4cN5EA3bDhszqWOHEhBLIZh+qHdnmaFABwIwm9BxLZxAtn6fGvr379/Djy59Pv779+/jz69/Pv7///wAGQyjggAQWaOCBCCao4IIMNujggxBGKOGEFFZo4YUYZqjhhhx26OGHIIYo4ogklmjiiSimqOKKLLbo4oswxijjjDRKEQEAOw=="
+           src="{{photo.alt_sizes[1].url}}"></core-image>
+          <!--
+            <core-image width="{{photo.alt_sizes[1].width*2}}" height="{{photo.alt_sizes[1].height*2}}"
+             preload placeholder src="{{photo.alt_sizes[1].url}}"></core-image>
+             -->
+          <a target="_blank" href="{{photo.original_size.url}}">@</a>
+        </template>
+      </template>
+    </div>
+    <div horizontal end-justified layout class="post_footer">
+      <template if="{{!loading}}">
+        <template if="{{reblogged}}">
+          <paper-icon-button on-click="{{delete}}" icon="clear"></paper-icon-button>
+        </template>
+        <template if="{{!reblogged}}">
+          <paper-icon-button on-click="{{reblog}}" icon="av:repeat"></paper-icon-button>
+        </template>
+      </template>
+      <core-localstorage name="reblogged_{{id}}" value="{{reblogged}}" hidden></core-localstorage>
+      <paper-icon-button icon="favorite"></paper-icon-button>
+    </div>
+  </div>
+</template>
+<script src="tumblr-post.js"></script>
+</polymer-element>
